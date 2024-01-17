@@ -1,0 +1,9 @@
+{
+    "tasks":{
+        "addTask":"إضافة مهمة",
+        "complete":"مكتملة"
+    },
+    "general":{
+        "loading":"تحميل"
+    }
+}

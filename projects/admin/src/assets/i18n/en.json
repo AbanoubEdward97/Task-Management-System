@@ -1,0 +1,9 @@
+{
+    "tasks":{
+        "addTask":"Add Task",
+        "complete":"complete"
+    },
+    "general":{
+        "loading":"loading"
+    }
+}
