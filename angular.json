@@ -30,6 +30,8 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "projects/user/src/styles.scss"
             ],
             "scripts": [
@@ -103,11 +105,12 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "projects/user/src/styles.scss"
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
-
             ]
           }
         }
@@ -140,11 +143,12 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "projects/admin/src/styles.scss"
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
-
             ]
           },
           "configurations": {
@@ -213,11 +217,13 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "projects/admin/src/styles.scss"
             ],
             "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
-
             ]
           }
         }

@@ -28,19 +28,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ListTasksComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'user' ,'deadLineDate','status', 'actions'];
   dataSource = ELEMENT_DATA;
-  tasksFilter!:FormGroup
+  tasksFilter!:FormGroup;
   users:any = [
-    {name:"Moahmed" , id:1},
-    {name:"Ali" , id:2},
-    {name:"Ahmed" , id:3},
-    {name:"Zain" , id:4},
+    {name:"Ahmed" , id:"659df957bf0f2f735c0261fe"},
+    {name:"Mohamed" , id:"659df9edbf0f2f735c026209"},
   ]
 
   status:any = [
     {name:"Complete" , id:1},
-    {name:"In-Prossing" , id:2},
+    {name:"In-Progress" , id:2},
   ]
-  constructor(public dialog: MatDialog ,private fb:FormBuilder) { }
+  constructor(public dialog: MatDialog ,private fb:FormBuilder,) { }
 
   ngOnInit(): void {
     this.createform()
@@ -56,6 +54,6 @@ export class ListTasksComponent implements OnInit {
   }
 
   getAllTasks() {
-
+    
   }
 }

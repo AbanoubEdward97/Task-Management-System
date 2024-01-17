@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +10,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  title = 'angulartasks';
-}
+lang:any;
+  constructor(
+    private http:HttpClient,
+    private translate:TranslateService
+    ){
+      if("lang" in localStorage){
+        this.lang=localStorage.getItem("lang");
+        translate.use(this.lang);
+      }else{
+        translate.use(this.translate.defaultLang);
+      }
+      
+    }
+    title = 'angulartasks';
+} 
