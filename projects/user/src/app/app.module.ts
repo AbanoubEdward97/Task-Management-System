@@ -13,6 +13,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -24,18 +26,20 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    CoreModule,
     NgxPaginationModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     TranslateModule.forRoot({
-      loader:{
-        provide:TranslateLoader,
-        useFactory:HttpLoaderFactory,
-        deps:[HttpClient]
-      }
-    })
-  
+      defaultLanguage:'en',
+       loader: {
+           provide: TranslateLoader,
+           useFactory: HttpLoaderFactory,
+           deps: [HttpClient]
+       }
+   }),
+   SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

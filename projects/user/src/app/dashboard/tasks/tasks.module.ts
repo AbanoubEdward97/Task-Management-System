@@ -6,6 +6,8 @@ import { ListTasksComponent } from './components/list-tasks/list-tasks.component
 import { MaterialModule } from '../../material/material.module'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
-    TasksRoutingModule
+    TasksRoutingModule,
+    NgxPaginationModule,
+    SharedModule
   ]
 })
 export class TasksModule { }

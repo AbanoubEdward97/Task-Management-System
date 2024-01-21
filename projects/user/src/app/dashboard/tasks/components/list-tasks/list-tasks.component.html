@@ -2,19 +2,24 @@
 
 
   <div class="row">
-    <div class="col-md-3" *ngFor="let item of dataSource;let index = index">
+    <div class="col-md-3" *ngFor="let item of dataSource| paginate: {
+      itemsPerPage: itemsPerPage,
+      currentPage: page,
+      totalItems: total };let index = index">
       <div class="card mt-3" >
         <div class="card-body">
           <h2 class="card-title">{{item.title}}</h2>
           <p class="card-subtitle mb-2 text-muted">Dead-Line Date : {{item.deadLineDate}}</p>
           <p class="card-text">{{item.description }}</p>
           <a  class="card-link"  mat-raised-button color="basic">Details</a>
-          <button  mat-raised-button color="warn">Complete</button>
+          <button  mat-raised-button color="warn">{{ 'tasks.complete' | translate}}</button>
         </div>
       </div>
     </div>
   </div>
-
+  <pagination-controls
+  class="pagi" (pageChange)="gty($event)"
+  ></pagination-controls>
     <!-- <div class="listBox">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8  w-100 mt-2">
 

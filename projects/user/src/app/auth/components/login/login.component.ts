@@ -27,16 +27,13 @@ export class LoginComponent implements OnInit {
     })
   }
   login(){
-    this.spinner.show();
     this.service.login(this.loginForm.value).subscribe({
       next:res=>{
         this.toaster.success("Logined Successfully");
         this.router.navigate(['/tasks'])
-        this.spinner.hide();
       },
       error:err=>{
         this.toaster.error(err.error.message);
-        this.spinner.hide();
       }
     });
   }

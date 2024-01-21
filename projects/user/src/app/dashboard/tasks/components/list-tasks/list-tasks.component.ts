@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+
 export interface PeriodicElement {
   title: string;
   description: string;
@@ -29,6 +30,9 @@ export class ListTasksComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'user' ,'deadLineDate','status', 'actions'];
   dataSource = ELEMENT_DATA;
   tasksFilter!:FormGroup;
+page:any=1;
+total:any;
+itemsPerPage=3;
   users:any = [
     {name:"Ahmed" , id:"659df957bf0f2f735c0261fe"},
     {name:"Mohamed" , id:"659df9edbf0f2f735c026209"},
@@ -55,5 +59,10 @@ export class ListTasksComponent implements OnInit {
 
   getAllTasks() {
     
+  }
+  gty(event:any){
+    console.log(event);
+    this.page=event;
+    //this.getAllTasks();
   }
 }
