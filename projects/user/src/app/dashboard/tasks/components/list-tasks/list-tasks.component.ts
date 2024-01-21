@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { TasksService } from '../../services/tasks.service';
 
 export interface PeriodicElement {
   title: string;
@@ -28,11 +29,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListTasksComponent implements OnInit {
   displayedColumns: string[] = ['position', 'title', 'user' ,'deadLineDate','status', 'actions'];
-  dataSource = ELEMENT_DATA;
+  dataSource:any = [];
   tasksFilter!:FormGroup;
 page:any=1;
 total:any;
+userData:any;
 itemsPerPage=3;
+selectedStatus:string="In-Progress";
   users:any = [
     {name:"Ahmed" , id:"659df957bf0f2f735c0261fe"},
     {name:"Mohamed" , id:"659df9edbf0f2f735c026209"},
@@ -42,10 +45,12 @@ itemsPerPage=3;
     {name:"Complete" , id:1},
     {name:"In-Progress" , id:2},
   ]
-  constructor(public dialog: MatDialog ,private fb:FormBuilder,) { }
+  constructor(public dialog: MatDialog ,private fb:FormBuilder,private service:TasksService) { }
 
   ngOnInit(): void {
-    this.createform()
+    this.createform();
+    this.getUserData();
+    this.getAllTasks();
   }
 
   createform() {
@@ -58,11 +63,30 @@ itemsPerPage=3;
   }
 
   getAllTasks() {
+    let params ={
+      page:this.page,
+      limit:this.itemsPerPage,
+      status:this.selectedStatus
+
+    }
+    console.log(this.userData);
     
+   this.service.getUserTasks(this.userData.userId,params).subscribe({
+    next:(res:any)=>{
+      console.log(res);
+      this.dataSource=res.tasks;
+    }
+   })
+    
+  }
+  getUserData(){
+    let token = JSON.stringify(localStorage.getItem("token"));
+    this.userData=JSON.parse(window.atob(token.split(".")[1]));
+    //console.log(this.userData);
   }
   gty(event:any){
     console.log(event);
     this.page=event;
-    //this.getAllTasks();
+    this.getAllTasks();
   }
 }

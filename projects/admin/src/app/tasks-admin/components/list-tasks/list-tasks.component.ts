@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { TasksService } from '../../services/tasks.service';
 export interface PeriodicElement {
   title: string;
   user: string;
@@ -39,7 +40,7 @@ export class ListTasksComponent implements OnInit {
 
   status:any = [
     {name:"Complete" , id:1},
-    {name:"In-Prossing" , id:2},
+    {name:"In-Progress" , id:2},
   ]
   constructor(public dialog: MatDialog ,private fb:FormBuilder) { }
 

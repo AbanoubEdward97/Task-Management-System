@@ -28,14 +28,15 @@ export class LoginComponent implements OnInit {
   }
   login(){
     this.service.login(this.loginForm.value).subscribe({
-      next:res=>{
+      next:(res:any)=>{
         this.toaster.success("Logined Successfully");
-        this.router.navigate(['/tasks'])
+        localStorage.setItem("token",res.token);
+        this.router.navigate(['/tasks']);
       },
       error:err=>{
         this.toaster.error(err.error.message);
       }
     });
   }
-
+  
 }
