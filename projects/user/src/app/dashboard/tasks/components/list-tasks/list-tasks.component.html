@@ -1,6 +1,4 @@
 <div class="mt-4">
-
-
   <div class="row">
     <div class="col-md-3" *ngFor="let item of dataSource| paginate: {
       itemsPerPage: itemsPerPage,
@@ -10,10 +8,10 @@
         <div class="card-body">
           <h2 class="card-title">{{item.title}}</h2>
           <img src="https://crud-37qy.onrender.com/{{item.image}}" alt="">
-          <p class="card-subtitle mb-2 text-muted">Dead-Line Date : {{item.deadLineDate}}</p>
+          <p class="card-subtitle mb-2 text-muted">Dead-Line Date : {{item.deadline}}</p>
           <p class="card-text">{{item.description }}</p>
-          <a  class="card-link"  mat-raised-button color="basic">Details</a>
-          <button  mat-raised-button color="warn">{{ 'tasks.complete' | translate}}</button>
+          <a  class="card-link"  mat-raised-button color="basic" routerLink="tasks/task">Details</a>
+          <button  mat-raised-button color="warn" (click)="complete(item)">{{ 'tasks.complete' | translate}}</button>
         </div>
       </div>
     </div>

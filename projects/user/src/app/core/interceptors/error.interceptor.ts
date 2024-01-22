@@ -20,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error:HttpErrorResponse)=>{
         this.toaster.error(error.error.message);
         if(String(error.error.message).includes("jwt") ){
-          this.router.navigate(["/login"]);
+          this.router.navigate(["/auth/login"]);
           localStorage.removeItem("token");
         }
         throw error;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TasksService } from '../../services/tasks.service';
+import { ToastrService } from 'ngx-toastr';
 
 export interface PeriodicElement {
   title: string;
@@ -35,6 +36,7 @@ page:any=1;
 total:any;
 userData:any;
 itemsPerPage=3;
+totalItems:any=0;
 selectedStatus:string="In-Progress";
   users:any = [
     {name:"Ahmed" , id:"659df957bf0f2f735c0261fe"},
@@ -45,7 +47,7 @@ selectedStatus:string="In-Progress";
     {name:"Complete" , id:1},
     {name:"In-Progress" , id:2},
   ]
-  constructor(public dialog: MatDialog ,private fb:FormBuilder,private service:TasksService) { }
+  constructor(public dialog: MatDialog ,private fb:FormBuilder,private service:TasksService,private toaster:ToastrService) { }
 
   ngOnInit(): void {
     this.createform();
@@ -74,7 +76,12 @@ selectedStatus:string="In-Progress";
    this.service.getUserTasks(this.userData.userId,params).subscribe({
     next:(res:any)=>{
       console.log(res);
+
       this.dataSource=res.tasks;
+      this.totalItems=res.total
+    },
+    error:(err:any)=>{
+      this.dataSource=[];
     }
    })
     
@@ -88,5 +95,18 @@ selectedStatus:string="In-Progress";
     console.log(event);
     this.page=event;
     this.getAllTasks();
+  }
+  complete(el:any){
+    const model = {
+      id:el._id
+    }
+    this.service.completeTask(model).subscribe({
+      next:(res:any)=>{
+        //toaster call all tasks again
+        this.getAllTasks();
+        this.toaster.success("Task Completed Successfully","Success");
+      }
+
+    })
   }
 }
