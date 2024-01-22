@@ -75,10 +75,12 @@ selectedStatus:string="In-Progress";
     
    this.service.getUserTasks(this.userData.userId,params).subscribe({
     next:(res:any)=>{
-      console.log(res);
+      //console.log(res.tasks);
 
       this.dataSource=res.tasks;
-      this.totalItems=res.total
+      console.log(this.dataSource);
+      
+      this.totalItems=res.total;
     },
     error:(err:any)=>{
       this.dataSource=[];

@@ -12,7 +12,6 @@ export class UsersService {
     return this.http.get(environment.baseApi.replace('tasks','auth') + '/users')
   }
   deleteUser(id:string){
-    return this.http.delete
-    
+    return this.http.delete(environment.baseApi.replace('tasks',"auth") + '/user' + id )
   }
 }
