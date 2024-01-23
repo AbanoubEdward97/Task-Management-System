@@ -1,23 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-export interface PeriodicElement {
-  name: string;
-  email: string;
-  tasksAssigned: string;
-}
+import { UsersService, changeStatus } from '../../services/users.service';
+import { ToastrService } from 'ngx-toastr';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'Hydrogen', email: "1.0079", tasksAssigned:"10-11-2022" },
-  { name: 'Helium', email: "4.0026", tasksAssigned:"10-11-2022" },
-  { name: 'Lithium', email: "6.941", tasksAssigned:"10-11-2022" },
-  { name: 'Beryllium', email: "9.0122", tasksAssigned:"10-11-2022" },
-  { name: 'Boron', email: "10.811", tasksAssigned:"10-11-2022" },
-  { name: 'Carbon', email: "12.010", tasksAssigned:"10-11-2022" },
-  { name: 'Nitrogen', email: "14.006", tasksAssigned:"10-11-2022" },
-  { name: 'Oxygen', email: "15.999", tasksAssigned:"10-11-2022" },
-  { name: 'Fluorine', email: "18.998", tasksAssigned:"10-11-2022" },
-  {  name: 'Neon', email: "20.179", tasksAssigned:"10-11-2022" },
-];
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -25,12 +10,66 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'email' ,'tasksAssigned', 'actions'];
-  dataSource = ELEMENT_DATA;
-  constructor() { }
+  dataSource:any = [];
+  page:any=1;
+  limit:any=5;
+  totalItems:any;
+  constructor(private service:UsersService,private toaster:ToastrService) { }
 
   ngOnInit(): void {
+    this.getAllUsers();
   }
-
-
-
+  getAllUsers(){
+    const model={
+      page:this.page,
+      limit:this.limit,
+      name:''
+    }
+    this.service.getAllUsers(model).subscribe({
+      next:(res:any)=>{
+        console.log(res);
+        
+        this.totalItems=res.totalItems,
+        this.dataSource=res.users
+      } 
+    })
+  }
+  gty(event:any){
+    console.log(event);
+    this.page=event;
+    this.getAllUsers();
+  }
+  deleteUser(id:string,index:number){
+    if(this.dataSource[index].assignedTasks > 0){
+      this.toaster.error("Can't delete user since it has tasks in progress")
+    }else{
+      this.service.deleteUser(id).subscribe({
+        next:(res:any)=>{
+          this.toaster.success("User Deleted Successfully","success");
+          this.page=1;
+          this.getAllUsers();
+        },
+        error:(err)=>{console.log(err);
+        }
+      })
+    }
+    
+  }
+  changeUserStatus(status:string,id:string,index:number){
+    if(this.dataSource[index].assignedTasks > 0){
+      this.toaster.error("Can't change user status since it has tasks in progress")
+    }else{
+      const model:changeStatus ={
+        id,
+        status
+      }
+      this.service.changeStatus(model).subscribe({
+        next:(res:any)=>{
+        this.toaster.success("Status changed successfully","success");
+        this.page=1
+        this.getAllUsers();
+        }
+      })
+    }
+  }
 }

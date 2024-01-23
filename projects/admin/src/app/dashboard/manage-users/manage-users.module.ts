@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ManageUsersRoutingModule } from './manage-users-routing.module';
 import { MaterialModule } from '../../material/material.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -18,7 +19,8 @@ import { MaterialModule } from '../../material/material.module';
     ReactiveFormsModule,
     ManageUsersRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    NgxPaginationModule
   ]
 })
 export class ManageUsersModule { }
