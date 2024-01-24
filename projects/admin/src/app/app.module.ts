@@ -13,6 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { CanActivate } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,

@@ -14,30 +14,27 @@ export class UsersComponent implements OnInit {
   page:any=1;
   limit:any=5;
   totalItems:any;
-  constructor(private service:UsersService,private toaster:ToastrService) { }
+  users:any=[];
+  constructor(private service:UsersService,private toaster:ToastrService) { 
+   
+  }
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.getUser();
   }
-  getAllUsers(){
+  getUser(){
     const model={
       page:this.page,
       limit:this.limit,
       name:''
     }
-    this.service.getAllUsers(model).subscribe({
-      next:(res:any)=>{
-        console.log(res);
-        
-        this.totalItems=res.totalItems,
-        this.dataSource=res.users
-      } 
-    })
+    this.service.getUsersData(model)
   }
+  
   gty(event:any){
     console.log(event);
     this.page=event;
-    this.getAllUsers();
+    this.getUser();
   }
   deleteUser(id:string,index:number){
     if(this.dataSource[index].assignedTasks > 0){
@@ -47,7 +44,7 @@ export class UsersComponent implements OnInit {
         next:(res:any)=>{
           this.toaster.success("User Deleted Successfully","success");
           this.page=1;
-          this.getAllUsers();
+          this.getUser();
         },
         error:(err)=>{console.log(err);
         }
@@ -67,7 +64,7 @@ export class UsersComponent implements OnInit {
         next:(res:any)=>{
         this.toaster.success("Status changed successfully","success");
         this.page=1
-        this.getAllUsers();
+        this.getUser();
         }
       })
     }

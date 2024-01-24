@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
 import { MatCardLgImage } from '@angular/material/card';
 import { TranslateService } from '@ngx-translate/core';
+import { UsersService } from '../../../manage-users/services/users.service';
 export interface PeriodicElement {
   title: string;
   user: string;
@@ -28,6 +29,7 @@ export class ListTasksComponent implements OnInit {
   page:any=1;
   total:any;
   itemsPerPage=3;
+  usersData:any=[];
   users:any = [
     {name:"Ahmed" , id:"659df957bf0f2f735c0261fe"},
     {name:"Mohamed" , id:"659df9edbf0f2f735c026209"},
@@ -43,21 +45,39 @@ export class ListTasksComponent implements OnInit {
     public dialog: MatDialog,
     private toaster:ToastrService,
     private spinner:NgxSpinnerService,
-    private translate:TranslateService
-    ) { }
+    private translate:TranslateService,
+    private userService:UsersService
+    ) {this.getDataFromSubject() }
 
   ngOnInit(): void {
+    this.getUsers();
    this.getAllTasks();
   }
 
-
+  getUsers(){
+    this.userService.getUsersData();
+  }
+  getDataFromSubject(){
+    this.userService.userData.subscribe({
+      next:(res:any)=>{
+        this.users=this.usersMapping(res.data);
+      }
+    })
+  }
+  usersMapping(data?:any[]){
+    let newArray = data?.map(item=>{
+      return {
+        name:item.username,
+        id:item._id
+      }
+    })
+    return newArray;
+  }
   getAllTasks() {
     return this.service.getAllTasks(this.filtration,this.page,this.itemsPerPage).subscribe({
       next:(res:any)=>{
         this.dataSource=this.formulateTasks(res.tasks);
         this.total=res.totalItems
-        console.log(res);
-        console.log(this.total);
       },
     })
   }

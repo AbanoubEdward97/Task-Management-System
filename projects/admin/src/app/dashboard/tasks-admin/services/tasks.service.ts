@@ -6,6 +6,7 @@ import { environment } from 'projects/admin/src/environments/environment';
   providedIn: 'root'
 })
 export class TasksService {
+  userData: any;
 
   constructor(private http:HttpClient) { }
   getAllTasks(filter:any,page:any,itemsPerPage:number){

@@ -38,10 +38,7 @@ userData:any;
 itemsPerPage=3;
 totalItems:any=0;
 selectedStatus:string="In-Progress";
-  users:any = [
-    {name:"Ahmed" , id:"659df957bf0f2f735c0261fe"},
-    {name:"Mohamed" , id:"659df9edbf0f2f735c026209"},
-  ]
+  users:any = []
 
   status:any = [
     {name:"Complete" , id:1},

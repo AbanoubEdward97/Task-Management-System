@@ -22,4 +22,7 @@ lang:any="en";
     }
     window.location.reload();
   }
+  logout(){
+    localStorage.removeItem("token");
+  }
 }

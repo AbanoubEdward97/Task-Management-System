@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { HashLocationStrategy } from '@angular/common';
+import { UsersService } from '../../../manage-users/services/users.service';
 
 @Component({
   selector: 'app-add-task',
@@ -22,23 +23,35 @@ export class AddTaskComponent implements OnInit {
     public matDialog:MatDialog,
     private service:TasksService,
     private toaster:ToastrService,
-    private spinner:NgxSpinnerService
-    ) { }
+    private spinner:NgxSpinnerService,
+    private userService:UsersService
+    ) {this.getDataFromSubject() }
   newFormGroup!:FormGroup;
   imgPath!:string;
   oldFormValues:any;
   hasChanged:boolean=false;
-  users:any = [
-    {name:"Ahmed" , id:"659df957bf0f2f735c0261fe"},
-    {name:"Mohamed" , id:"659df9edbf0f2f735c026209"},
-    {name:"user2",id:"65a96591f8d5ba825caa024a"}
-  ]
+  users:any = []
 
   ngOnInit(): void {
     console.log(this.data);
     this.createForm();
   }
-
+  getDataFromSubject(){
+    this.userService.userData.subscribe({
+      next:(res:any)=>{
+        this.users=this.usersMapping(res.data);
+      }
+    })
+  }
+  usersMapping(data:any[]){
+    let newArray = data?.map(item=>{
+      return {
+        name:item.username,
+        id:item._id
+      }
+    })
+    return newArray;
+  }
   createForm(){
     this.newFormGroup = this.fb.group({
       title:[this.data?.title || '',[Validators.required,Validators.minLength(5)]],
